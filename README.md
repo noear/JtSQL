@@ -1,5 +1,5 @@
 # JtSQL
-JtSQL = javascript + sql + 模板理念，组合而成的一种创意脚本。定位为数据库的批处理或定时任务。<br />
+JtSQL = javascript + sql + 模板理念，组合而成的一种创意脚本。定位为数据库的批处理或定时任务(尤其在分布式数据库情境下...)。<br />
 <br />
 特别说明：<br />
 使用$&lt;db::...&gt;，在Js里嵌入SQL脚本<br />
