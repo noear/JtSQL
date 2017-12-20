@@ -19,7 +19,7 @@ JtSQL = javascript + sql + 模板理念，粘成一种创意脚本。定位为�
 <br />
 <br />
 # 示例
-```sql
+```sql,js
 /*upd_ip_city.jt.sql*/
 
 set("sponge.sponge_track",{db:"sponge_track",user:"xxxx",password:"xxxxxx",url:"jdbc:mysql://x.x.x.x:3306/sponge_track?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=true"});
