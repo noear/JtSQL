@@ -18,7 +18,7 @@ JtSQL = javascript + sql + 模板理念，组合而成的一种创意脚本。�
 把源码：JtSqlEngine 放到自己的项目里，随便弄：）<br />
 <br />
 <br />
-# 示例
+# 示例（更多见demo目录）
 ```js
 /*upd_ip_city.jt.sql*/
 
