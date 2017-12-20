@@ -55,9 +55,56 @@ if(list && list.length){
 	};
 };
 
+```
+
+```js
+/*stat_by_track.jtsql.js*/
+set("sponge.sponge_track",{db:"sponge_track",user:"xxxx",password:"xxxxxx",url:"jdbc:mysql://x.x.x.x:3306/sponge_track?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=true"});
+
+var date1  = $<sponge.sponge_track::SELECT DATE_FORMAT(DATE_ADD(NOW(),INTERVAL -1 DAY),'%Y%m%d')>;
+var date0  = $<sponge.sponge_track::SELECT DATE_FORMAT(NOW(),'%Y%m%d');>;
+
+var hours = (new Date()).getHours();
+
+
+$<sponge.sponge_track::DELETE FROM stat_track_date_hour_pv_uv_ip WHERE log_date>={{ (hours>7? date0 : date1) }}>;
+
+function stat_track(i) {
+	/*url*/
+	var url_ids = $<sponge.sponge_track::SELECT url_id FROM short_url WHERE track_params_num>={{i}}>;
+	
+	if(url_ids){
+		for(var j in url_ids){
+			$<sponge.sponge_track::INSERT INTO stat_track_date_hour_pv_uv_ip(url_id,tag_id,log_date,log_hour,vi,vd,uv,pv,ip)
+			SELECT url_id,tag_id,log_date,-1,{{i}},v{{i}},COUNT(DISTINCT user_key) uv,COUNT(*) pv,COUNT(DISTINCT log_ip_id) ip
+			FROM short_redirect_log_30d 
+			WHERE log_date>={{ (hours>7? date0 : date1) }} AND url_id ={{url_ids[j]}}
+			GROUP BY url_id,log_date,v{{i}};>;
+		};
+	};
+
+	/*tag*/
+	var tag_ids = $<sponge.sponge_track::SELECT tag_id FROM track_tag WHERE t_track_params_num>={{i}};>;
+	if(tag_ids){
+		for(var j in tag_ids){
+			$<sponge.sponge_track::INSERT INTO stat_track_date_hour_pv_uv_ip(url_id,tag_id,log_date,log_hour,vi,vd,uv,pv,ip)
+			SELECT -1,tag_id,log_date,-1,{{i}},v{{i}},COUNT(DISTINCT user_key) uv,COUNT(*) pv,COUNT(DISTINCT log_ip_id) ip
+			FROM short_redirect_log_30d 
+			WHERE log_date>={{ (hours>7? date0 : date1) }} AND tag_id = {{tag_ids[j]}}
+			GROUP BY tag_id,log_date,v{{i}}>;
+		};
+	};
+};
+
+stat_track(1);
+stat_track(2);
+stat_track(3);
+stat_track(4);
+stat_track(5);
 
 
 ```
+
 # 附言<br/>
 一、统计任务的问题（关于分布式数据库）：<br/>
 分布式数据库：<br/>
