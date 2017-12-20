@@ -4,6 +4,11 @@ JtSQL = javascript + sql + 模板理念，组合而成的一种创意脚本。�
 特别说明：<br />
 使用$&lt;db::...&gt;，在Js里嵌入SQL脚本<br />
 使用{{...}}，在SQL里嵌入Js脚本<br />
+log(...)，记录日志<br />
+set(key,val)，设置信息<br />
+get(key)，获取设置信息<br />
+http({ur,form,header})，请求http<br />
+<br />
 <br />
 运行说明：<br />
 1.终端运行模式（可用于调试代码或即时运行）：<br />
