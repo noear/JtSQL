@@ -1,6 +1,7 @@
 package jtsql.core;
 
 
+import jtsql.utils.EncryptUtil;
 import jtsql.utils.HttpUtil;
 import jtsql.utils.LogUtil;
 import jtsql.utils.Timespan;
@@ -31,6 +32,10 @@ public class JtSqlEngine {
         jsEngine.put("JTAPI",jtapi);
 
         try {
+            jsEngine.eval("function guid(){return JTAPI.guid()};");
+            jsEngine.eval("function md5(txt){return JTAPI.md5(txt)};");
+            jsEngine.eval("function sha1(txt){return JTAPI.sha1(txt)};");
+
             jsEngine.eval("function set(key,obj){JTAPI.set(key,JSON.stringify(obj))};");
             jsEngine.eval("function get(key){var txt=JTAPI.get(key);if(txt){return JSON.parse(txt)}else{return null}};");
 
@@ -209,6 +214,18 @@ public class JtSqlEngine {
                    "");
 
            return db;
+        }
+
+        public String guid(){
+            return UUID.randomUUID().toString();
+        }
+
+        public String md5(String str){
+            return EncryptUtil.md5(str);
+        }
+
+        public String sha1(String str){
+            return EncryptUtil.sha1(str);
         }
     }
 }
