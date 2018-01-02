@@ -57,6 +57,25 @@ SQL的客户端工具：<br/>
 <br/>
 # 脚本示例（更多见demo目录）
 ```js
+/*发消一条消息*/
+var date1  = $<SELECT DATE_FORMAT(DATE_ADD(NOW(),INTERVAL -1 DAY),'%Y%m%d');>;
+
+http({ url:"http://x.x.x/msg/send/", form:{key:guid(),topic:"sponge.stat.notice",message:date1} });
+```
+
+```js
+/*引入一个js库；完成数据抓取；*/
+require("http://x.x.x/jtsql/cheerio.js");
+
+var html = http({url:"http://m.x.cn/"});
+
+var $ = cheerio.load(html);
+
+log("html::"+ $('#download img').attr('src'));
+
+```
+
+```js
 /*upd_ip_city.jtsql.js*/
 
 set("sponge.sponge_track",{db:"sponge_track",user:"xxxx",password:"xxxxxx",url:"jdbc:mysql://x.x.x.x:3306/sponge_track?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=true"});
