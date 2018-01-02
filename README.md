@@ -19,12 +19,12 @@ JtSQL 特点：<br/>
 JtSQL 编码说明：<br />
 使用$&lt;db::...&gt;，在Js里嵌入SQL脚本<br />
 使用{{...}}，在SQL里嵌入Js脚本（注：若它处出现{{ 或 }} 当中加个空隔）<br />
+<br />
 函数log(str)，用于记录日志<br />
 函数set(key,val)，用于设置配置信息<br />
 函数get(key)，用于获取配置信息<br />
 函数http({url,form,header})，用于请求http<br />
 函数require(url)，用于引入一个JS脚本<br />
-<br />
 函数guid()，用于生成一个GUID<br />
 函数md5(str)，用于生成MD5加密值<br />
 函数sha1(str)，用于生成sha1加密值<br />
