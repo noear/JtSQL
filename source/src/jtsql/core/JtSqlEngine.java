@@ -32,6 +32,9 @@ public class JtSqlEngine {
         jsEngine.put("JTAPI",jtapi);
 
         try {
+            jsEngine.eval("var jtapi_global={};");
+            jsEngine.eval("function require(url){var lib=md5(url);if(!jtapi_global[lib]){var code=http({url:url});jtapi_global[lib]=eval(code)};return jtapi_global[lib]};");
+
             jsEngine.eval("function guid(){return JTAPI.guid()};");
             jsEngine.eval("function md5(txt){return JTAPI.md5(txt)};");
             jsEngine.eval("function sha1(txt){return JTAPI.sha1(txt)};");
@@ -184,7 +187,22 @@ public class JtSqlEngine {
             LogUtil.write("JtSQL.log", txt.toString());
         }
 
-        //
+
+
+        public String guid(){
+            return UUID.randomUUID().toString();
+        }
+
+        public String md5(String str){
+            return EncryptUtil.md5(str);
+        }
+
+        public String sha1(String str){
+            return EncryptUtil.sha1(str);
+        }
+
+
+        ////////////////////////
         public void set(String key, String val) {
             setting.put(key,val);
         }
@@ -201,31 +219,19 @@ public class JtSqlEngine {
         }
 
         private DbContext getDb(String setting_key){
-           String json = get(setting_key);
-           ONode cfg = ONode.tryLoad(json);
+            String json = get(setting_key);
+            ONode cfg = ONode.tryLoad(json);
 
-           //String schemaName, String url, String user, String password, String fieldFormat;
+            //String schemaName, String url, String user, String password, String fieldFormat;
 
-           DbContext db = new DbContext(
-                   cfg.get("db").getString(),
-                   cfg.get("url").getString(),
-                   cfg.get("user").getString(),
-                   cfg.get("password").getString(),
-                   "");
+            DbContext db = new DbContext(
+                    cfg.get("db").getString(),
+                    cfg.get("url").getString(),
+                    cfg.get("user").getString(),
+                    cfg.get("password").getString(),
+                    "");
 
-           return db;
-        }
-
-        public String guid(){
-            return UUID.randomUUID().toString();
-        }
-
-        public String md5(String str){
-            return EncryptUtil.md5(str);
-        }
-
-        public String sha1(String str){
-            return EncryptUtil.sha1(str);
+            return db;
         }
     }
 }
