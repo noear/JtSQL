@@ -22,7 +22,8 @@ JtSQL 编码说明：<br />
 函数log(...)，用于记录日志<br />
 函数set(key,val)，用于设置配置信息<br />
 函数get(key)，用于获取配置信息<br />
-函数http({ur,form,header})，用于请求http<br />
+函数http({url,form,header})，用于请求http<br />
+函数require(url)，用于引入一个JS脚本<br />
 <br />
 <br />
 JtSQL 运行说明：<br />
